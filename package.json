@@ -1,0 +1,21 @@
+{
+  "name": "open_guess",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/babel ./jsx -d ./build -w"
+  },
+  "babel": {
+    "presets": [
+      "react"
+    ]
+  },
+  "author": "ysirotenko",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react": "^6.24.1"
+  }
+}
