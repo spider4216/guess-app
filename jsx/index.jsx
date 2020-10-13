@@ -1,3 +1,25 @@
+class SoftwareKey extends React.Component
+{
+	render()
+	{
+		return (
+			<div id="software-key" style={ {width: "100%", height: "30px", padding: "5px", backgroundColor: "#cccccc", fontSize: "12px", boxSizing: "border-box"} }>
+				<div className="left-key" style={ {display: "inline-block", verticalAlign: "top", width: "89px"} }>
+					<span>Restart</span>
+				</div>
+
+				<div className="enter-key" style={ {display: "inline-block", verticalAlign: "top", textAlign: "center"} }>
+					<span><b>ENTER</b></span>
+				</div>
+
+				<div className="right-key" style={ {display: "inline-block", verticalAlign: "top", width: "89px", textAlign: "right"} }>
+					<span></span>
+				</div>
+			</div>
+		);
+	}
+}
+
 class Answer extends React.Component
 {
 	render()
@@ -44,7 +66,7 @@ class Display extends React.Component
 	render()
 	{
 		return (
-			<div style={ {width: "100%", height: "200px"} }>
+			<div style={ {width: "100%", height: "261px"} }>
 				<Pic img={this.props.img} />
 				<Answers data={this.props.answers} />
 			</div>
@@ -72,6 +94,7 @@ class Screen extends React.Component
 			<div id="screen" style={ {width: this.props.width, height: this.props.height} }>
 				<Header title={this.props.header} />
 				<Display data={this.props.data} img={this.props.img} answers={this.props.answers} />
+				<SoftwareKey />
 			</div>
 		);
 	}
