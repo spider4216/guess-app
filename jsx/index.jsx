@@ -24,8 +24,12 @@ class Answer extends React.Component
 {
 	render()
 	{
+		let style = this.props.answerSelected == "true" ? {
+			color: "green"
+		} : {};
+
 		return (
-			<div>
+			<div style={style}>
 				<span>{this.props.number}. </span>
 				<span>{this.props.value}</span>
 			</div>
@@ -37,13 +41,12 @@ class Answers extends React.Component
 {
 	render()
 	{
-		
 		return (
 			<div>
-				<Answer number="1" value={this.props.data[0].value} />
-				<Answer number="2" value={this.props.data[1].value} />
-				<Answer number="3" value={this.props.data[2].value} />
-				<Answer number="4" value={this.props.data[3].value} />
+				<Answer number="1" value={this.props.data[0].value} answerSelected={this.props.answerSelected == 1 ? "true" : "false"}/>
+				<Answer number="2" value={this.props.data[1].value} answerSelected={this.props.answerSelected == 2 ? "true" : "false"}/>
+				<Answer number="3" value={this.props.data[2].value} answerSelected={this.props.answerSelected == 3 ? "true" : "false"}/>
+				<Answer number="4" value={this.props.data[3].value} answerSelected={this.props.answerSelected == 4 ? "true" : "false"}/>
 			</div>
 		);
 	}
@@ -68,7 +71,7 @@ class Display extends React.Component
 		return (
 			<div style={ {width: "100%", height: "261px"} }>
 				<Pic img={this.props.img} />
-				<Answers data={this.props.answers} />
+				<Answers data={this.props.answers} answerSelected={this.props.answerSelected} />
 			</div>
 		);
 	}
@@ -93,7 +96,7 @@ class Screen extends React.Component
 		return (
 			<div id="screen" style={ {width: this.props.width, height: this.props.height} }>
 				<Header title={this.props.header} />
-				<Display data={this.props.data} img={this.props.img} answers={this.props.answers} />
+				<Display data={this.props.data} img={this.props.img} answers={this.props.answers} answerSelected={this.props.answerSelected} />
 				<SoftwareKey />
 			</div>
 		);
@@ -114,7 +117,8 @@ class App extends React.Component
 		this.state = {
 			header : "Loading...",
 			img: initialGuessData.img,
-			answers: this.getAnswers(initialGuessData.title)
+			answers: this.getAnswers(initialGuessData.title),
+			selected: 0
 		};
 		
 	}
@@ -171,13 +175,40 @@ class App extends React.Component
 	render()
 	{
 		return (
-			<Screen width="240px" height="320px" header={this.state.header} img={this.state.img} answers={this.state.answers} />
+			<Screen width="240px" height="320px" header={this.state.header} img={this.state.img} answers={this.state.answers} answerSelected={this.state.selected} />
 		);
 	}
 
 	componentDidMount()
 	{
 		this.setState({header: "Guess App"});
+		window.addEventListener('keydown', (e) => {this.keyPress(e)})
+	}
+
+	keyPress(e)
+	{
+		switch(e.key) {
+			case 'SoftLeft':
+				this.restart();
+				break;
+			case '1':
+				this.setState({selected: 1});
+				break;
+			case '2':
+				this.setState({selected: 2});
+				break;
+			case '3':
+				this.setState({selected: 3});
+				break;
+			case '4':
+				this.setState({selected: 4});
+				break;
+		}
+	}
+
+	restart()
+	{
+
 	}
 }
 
