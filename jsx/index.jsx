@@ -191,6 +191,9 @@ class App extends React.Component
 			case 'SoftLeft':
 				this.restart();
 				break;
+			case 'Enter':
+				this.enter();
+				break;
 			case '1':
 				this.setState({selected: 1});
 				break;
@@ -203,6 +206,15 @@ class App extends React.Component
 			case '4':
 				this.setState({selected: 4});
 				break;
+		}
+	}
+
+	enter()
+	{
+		if (this.state.answers[this.state.selected - 1].state == 'correct') {
+			alert('true');
+		} else {
+			alert('false');
 		}
 	}
 
