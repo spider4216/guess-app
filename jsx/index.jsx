@@ -64,12 +64,33 @@ class Pic extends React.Component
 	}
 }
 
+class Status extends React.Component
+{
+	render()
+	{
+		return (
+			<div id="statusbar">
+				<div id="correct" style={ {display: "inline-block", verticalAlign: "top", width: "110px"} }>
+					<span>Correct:</span>
+					<b style={ {color: "green"} }>{this.props.correct}</b>
+				</div>
+				<div id="incorrect" style={ {display: "inline-block", verticalAlign: "top", width: "110px"} }>
+					<span>Incorrect:</span>
+					<b style={ {color: "red"} }>{this.props.incorrect}</b>
+				</div>
+
+			</div>
+		);
+	}
+}
+
 class Display extends React.Component
 {
 	render()
 	{
 		return (
 			<div style={ {width: "100%", height: "261px"} }>
+				<Status correct={this.props.correct} incorrect={this.props.incorrect} />
 				<Pic img={this.props.img} />
 				<Answers data={this.props.answers} answerSelected={this.props.answerSelected} />
 			</div>
@@ -96,7 +117,7 @@ class Screen extends React.Component
 		return (
 			<div id="screen" style={ {width: this.props.width, height: this.props.height} }>
 				<Header title={this.props.header} />
-				<Display data={this.props.data} img={this.props.img} answers={this.props.answers} answerSelected={this.props.answerSelected} />
+				<Display correct={this.props.correct} incorrect={this.props.incorrect} data={this.props.data} img={this.props.img} answers={this.props.answers} answerSelected={this.props.answerSelected} />
 				<SoftwareKey />
 			</div>
 		);
@@ -109,7 +130,7 @@ class App extends React.Component
 	{
 		super(props);
 
-		let json = '[{"img":"/images/1/img.png", "title": "answer a"}, {"img":"/images/2/img.png", "title": "answer b"},{"img":"/images/3/img.png", "title": "answer c"},{"img":"/images/4/img.png", "title": "answer d"},{"img":"/images/5/img.png", "title": "answer e"}]';
+		let json = '[{"img":"/images/1/img.png", "title": "Russia"}, {"img":"/images/2/img.png", "title": "Kazakhstan"},{"img":"/images/3/img.png", "title": "Belarus"},{"img":"/images/4/img.png", "title": "China"},{"img":"/images/5/img.png", "title": "India"}]';
 
 		this.data = JSON.parse(json);
 		let initialGuessData = this.data[this.random(this.data.length)];
@@ -118,7 +139,9 @@ class App extends React.Component
 			header : "Loading...",
 			img: initialGuessData.img,
 			answers: this.getAnswers(initialGuessData.title),
-			selected: 0
+			selected: 0,
+			correct: 0,
+			incorrect: 3
 		};
 		
 	}
@@ -175,7 +198,7 @@ class App extends React.Component
 	render()
 	{
 		return (
-			<Screen width="240px" height="320px" header={this.state.header} img={this.state.img} answers={this.state.answers} answerSelected={this.state.selected} />
+			<Screen width="240px" height="320px" header={this.state.header} img={this.state.img} answers={this.state.answers} answerSelected={this.state.selected} correct={this.state.correct} incorrect={this.state.incorrect} />
 		);
 	}
 
@@ -212,9 +235,9 @@ class App extends React.Component
 	enter()
 	{
 		if (this.state.answers[this.state.selected - 1].state == 'correct') {
-			alert('true');
+			this.setState({correct: this.state.correct + 1});
 		} else {
-			alert('false');
+			this.setState({incorrect: this.state.incorrect - 1});
 		}
 	}
 
