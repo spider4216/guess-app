@@ -235,10 +235,18 @@ class App extends React.Component
 	enter()
 	{
 		if (this.state.answers[this.state.selected - 1].state == 'correct') {
-			this.setState({correct: this.state.correct + 1});
+			this.setState({correct: this.state.correct + 1});	
+
 		} else {
 			this.setState({incorrect: this.state.incorrect - 1});
 		}
+		
+		let guessData = this.data[this.random(this.data.length)];
+
+		this.setState({
+			img: guessData.img,
+			answers: this.getAnswers(guessData.title),
+		});
 	}
 
 	restart()
