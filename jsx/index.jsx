@@ -239,6 +239,11 @@ class App extends React.Component
 
 		} else {
 			this.setState({incorrect: this.state.incorrect - 1});
+
+			if (this.state.incorrect <= 0) {
+				alert('Your correct answers: ' + this.state.correct + '. Try again');
+				this.restart();
+			}
 		}
 		
 		let guessData = this.data[this.random(this.data.length)];
@@ -251,7 +256,14 @@ class App extends React.Component
 
 	restart()
 	{
+		let guessData = this.data[this.random(this.data.length)];
 
+		this.setState({
+			incorrect: 3,
+			correct: 0,
+			img: guessData.img,
+			answers: this.getAnswers(guessData.title),
+		});
 	}
 }
 
