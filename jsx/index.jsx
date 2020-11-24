@@ -250,6 +250,10 @@ class App extends React.Component
 
 	enter()
 	{
+		if (this.state.selected == 0) {
+			return;
+		}
+
 		if (this.state.answers[this.state.selected - 1].state == 'correct') {
 			this.setState({correct: this.state.correct + 1});	
 
