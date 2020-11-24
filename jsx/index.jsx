@@ -251,6 +251,7 @@ class App extends React.Component
 		this.setState({
 			img: guessData.img,
 			answers: this.getAnswers(guessData.title),
+			selected: 0
 		});
 	}
 
@@ -263,6 +264,7 @@ class App extends React.Component
 			correct: 0,
 			img: guessData.img,
 			answers: this.getAnswers(guessData.title),
+			selected: 0
 		});
 	}
 }
