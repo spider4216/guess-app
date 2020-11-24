@@ -104,7 +104,7 @@ class Header extends React.Component
 	{
 		return (
 			<div style={ {width: "100%", height: "28px", backgroundColor: "#320374", color: "white", textAlign: "center", padding: "5px 10px", boxSizing: "border-box", fontSize: "12px"} }>
-				<span>{this.props.title}</span>
+				<span>{this.props.title} sec</span>
 			</div>
 		);
 	}
@@ -116,7 +116,7 @@ class Screen extends React.Component
 	{
 		return (
 			<div id="screen" style={ {width: this.props.width, height: this.props.height} }>
-				<Header title={this.props.header} />
+				<Header title={this.props.time} />
 				<Display correct={this.props.correct} incorrect={this.props.incorrect} data={this.props.data} img={this.props.img} answers={this.props.answers} answerSelected={this.props.answerSelected} />
 				<SoftwareKey />
 			</div>
@@ -141,7 +141,9 @@ class App extends React.Component
 			answers: this.getAnswers(initialGuessData.title),
 			selected: 0,
 			correct: 0,
-			incorrect: 3
+			incorrect: 3,
+			time: 15,
+			timer: null,
 		};
 		
 	}
@@ -198,13 +200,27 @@ class App extends React.Component
 	render()
 	{
 		return (
-			<Screen width="240px" height="320px" header={this.state.header} img={this.state.img} answers={this.state.answers} answerSelected={this.state.selected} correct={this.state.correct} incorrect={this.state.incorrect} />
+			<Screen width="240px" height="320px" header={this.state.header} img={this.state.img} answers={this.state.answers} answerSelected={this.state.selected} correct={this.state.correct} incorrect={this.state.incorrect} time={this.state.time} />
 		);
 	}
 
 	componentDidMount()
 	{
-		this.setState({header: "Guess App"});
+		let timer = setInterval(() => {
+			this.setState({time: this.state.time - 1});
+
+			if (this.state.time <= 0 && this.state.incorrect > 0) {
+				this.restart(this.state.incorrect - 1, this.state.correct);
+			}
+
+			if (this.state.incorrect <= 0) {
+				alert('Your correct answers: ' + this.state.correct + '. Try again');
+				this.restart();
+				return;
+			}
+
+		}, 1000);
+		this.setState({timer: timer});
 		window.addEventListener('keydown', (e) => {this.keyPress(e)})
 	}
 
@@ -251,20 +267,22 @@ class App extends React.Component
 		this.setState({
 			img: guessData.img,
 			answers: this.getAnswers(guessData.title),
-			selected: 0
+			selected: 0,
+			time: 15,
 		});
 	}
 
-	restart()
+	restart(incorrect = 3, correct = 0)
 	{
 		let guessData = this.data[this.random(this.data.length)];
 
 		this.setState({
-			incorrect: 3,
-			correct: 0,
+			incorrect: incorrect,
+			correct: correct,
 			img: guessData.img,
 			answers: this.getAnswers(guessData.title),
-			selected: 0
+			selected: 0,
+			time: 15,
 		});
 	}
 }
