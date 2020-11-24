@@ -25,8 +25,8 @@ class Answer extends React.Component
 	render()
 	{
 		let style = this.props.answerSelected == "true" ? {
-			color: "green"
-		} : {};
+			color: "green", paddingBottom: "5px"
+		} : {paddingBottom: "5px"};
 
 		return (
 			<div style={style}>
@@ -42,7 +42,7 @@ class Answers extends React.Component
 	render()
 	{
 		return (
-			<div>
+			<div style={ {fontSize: "11px"} }>
 				<Answer number="1" value={this.props.data[0].value} answerSelected={this.props.answerSelected == 1 ? "true" : "false"}/>
 				<Answer number="2" value={this.props.data[1].value} answerSelected={this.props.answerSelected == 2 ? "true" : "false"}/>
 				<Answer number="3" value={this.props.data[2].value} answerSelected={this.props.answerSelected == 3 ? "true" : "false"}/>
@@ -57,7 +57,7 @@ class Pic extends React.Component
 	render()
 	{
 		return (
-			<div id="pic">
+			<div id="pic" style={ {height: "115px"} }>
 				<img src={this.props.img} />
 			</div>
 		);
@@ -69,12 +69,12 @@ class Status extends React.Component
 	render()
 	{
 		return (
-			<div id="statusbar">
-				<div id="correct" style={ {display: "inline-block", verticalAlign: "top", width: "110px"} }>
+			<div id="statusbar" style={ {fontSize: "14px", paddingBottom: "10px", paddingTop: "5px"} }>
+				<div id="correct" style={ {display: "inline-block", verticalAlign: "top", width: "115px"} }>
 					<span>Correct:</span>
 					<b style={ {color: "green"} }>{this.props.correct}</b>
 				</div>
-				<div id="incorrect" style={ {display: "inline-block", verticalAlign: "top", width: "110px"} }>
+				<div id="incorrect" style={ {display: "inline-block", verticalAlign: "top", width: "115px", textAlign: "right"} }>
 					<span>Incorrect:</span>
 					<b style={ {color: "red"} }>{this.props.incorrect}</b>
 				</div>
