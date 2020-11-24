@@ -1,0 +1,37 @@
+{
+  "version": "1.0.0",
+  "name": "OpenGuess",
+  "subtitle": "Try to guess something by something",
+  "description": "Did you like something? This app for you. Try to guess something by something",
+  "categories": [
+  	"games"
+  ],
+  "type": "web",
+  "launch_path": "/index.html",
+  "icons": {
+    "56": "/images/icons/OpenGuess_56.png",
+    "112": "/images/icons/OpenGuess_112.png"
+  },
+  "developer": {
+    "name": "Yuriy Sirotenko",
+    "url": "http://ysirotenko.geekspace.info"
+  },
+  "locales": {
+    "ru-RU": {
+      "name": "Угадай что-нибудь",
+      "description": "Вы любили что-нибудь? Значит это приложение для вас. Попытайтесь угадать что-нибудь по чему-нибудь",
+      "subtitle": "Попытайтесь угадать что-нибудь по чему-нибудь"
+    },
+    "en-US": {
+      "name": "OpenGuess",
+      "description": "Did you like something? This app for you. Try to guess something by something",
+      "subtitle": "Try to guess something by something"
+    }
+  },
+  "dependencies": {
+    "ads-sdk": "1.3.0"
+  },
+  "default_locale": "en-US",
+  "fullscreen": "true",
+  "orientation": [ "portrait-primary" ]
+}
