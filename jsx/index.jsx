@@ -139,6 +139,10 @@ class App extends React.Component
 
 		let json = '[{"img":"/images/1/img.png", "title": "Russia"}, {"img":"/images/2/img.png", "title": "Kazakhstan"},{"img":"/images/3/img.png", "title": "Belarus"},{"img":"/images/4/img.png", "title": "China"},{"img":"/images/5/img.png", "title": "India"}]';
 
+		this.soundLoose = new Audio('sounds/loose.wav');
+		this.soundWin = new Audio('sounds/win.wav');
+		this.soundClock = new Audio('sounds/tick.wav');
+
 		this.data = JSON.parse(json);
 		let initialGuessData = this.data[this.random(this.data.length)];
 		// get initial state for img and answers
@@ -216,7 +220,12 @@ class App extends React.Component
 		let timer = setInterval(() => {
 			this.setState({time: this.state.time - 1});
 
+			if (this.state.time <= 5 && this.state.time > 0) {
+				this.soundClock.play();
+			}
+
 			if (this.state.time <= 0 && this.state.incorrect > 0) {
+				this.soundLoose.play();
 				this.restart(this.state.incorrect - 1, this.state.correct);
 			}
 
@@ -262,9 +271,11 @@ class App extends React.Component
 		}
 
 		if (this.state.answers[this.state.selected - 1].state == 'correct') {
+			this.soundWin.play();
 			this.setState({correct: this.state.correct + 1});	
 
 		} else {
+			this.soundLoose.play();
 			this.setState({incorrect: this.state.incorrect - 1});
 
 			if (this.state.incorrect <= 0) {
