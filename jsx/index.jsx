@@ -57,7 +57,7 @@ class Pic extends React.Component
 	render()
 	{
 		return (
-			<div id="pic" style={ {height: "115px"} }>
+			<div id="pic" style={ {height: "115px", textAlign: "center"} }>
 				<img src={this.props.img} />
 			</div>
 		);
@@ -89,7 +89,7 @@ class Display extends React.Component
 	render()
 	{
 		return (
-			<div style={ {width: "100%", height: "261px"} }>
+			<div style={ {width: "100%", height: "252px", overflow: "hidden", padding: "5px",} }>
 				<Status correct={this.props.correct} incorrect={this.props.incorrect} />
 				<Pic img={this.props.img} />
 				<Answers data={this.props.answers} answerSelected={this.props.answerSelected} />
@@ -115,7 +115,7 @@ class Screen extends React.Component
 	render()
 	{
 		return (
-			<div id="screen" style={ {width: this.props.width, height: this.props.height} }>
+			<div id="screen" style={ {width: this.props.width, height: this.props.height, overflow: "hidden",} }>
 				<Header title={this.props.time} />
 				<Display correct={this.props.correct} incorrect={this.props.incorrect} data={this.props.data} img={this.props.img} answers={this.props.answers} answerSelected={this.props.answerSelected} />
 				<SoftwareKey />
