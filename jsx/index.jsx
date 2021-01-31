@@ -218,6 +218,8 @@ class App extends React.Component
 	componentDidMount()
 	{
 		let timer = setInterval(() => {
+			if (document.visibilityState !== 'visible') return
+
 			this.setState({time: this.state.time - 1});
 
 			if (this.state.time <= 5 && this.state.time > 0) {
