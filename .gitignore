@@ -3,3 +3,6 @@ build/
 *.swp
 .git
 .github
+.buildpath
+.project
+.settings/

@@ -4,18 +4,33 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/.bin/babel ./jsx -d ./build -w"
+    "build": "./node_modules/.bin/webpack -w",
+    "i": "rm -rf ./node_modules && npm cache clear --force && npm install"
   },
   "babel": {
     "presets": [
-      "react"
+      "@babel/react"
     ]
   },
   "author": "ysirotenko",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-react": "^6.24.1"
+    "@babel/core": "^7.13.14",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.13.13",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.0",
+    "file-loader": "^6.2.0",
+    "history": "^5.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router": "^5.2.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.28.0",
+    "webpack-cli": "^4.6.0"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.6.2",
+    "react-redux": "^7.2.5"
   }
 }
