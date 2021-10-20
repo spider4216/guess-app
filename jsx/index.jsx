@@ -9,6 +9,16 @@ import App from "./App.jsx";
 let json = '[{"img":"/images/1/img.png", "title": "Russia"}, {"img":"/images/2/img.png", "title": "Kazakhstan"},{"img":"/images/3/img.png", "title": "Belarus"},{"img":"/images/4/img.png", "title": "China"},{"img":"/images/5/img.png", "title": "India"}]';
 let data = JSON.parse(json);
 
+function controlReducer(state = {}, action) {
+	switch (action.type) {
+		case 'control/select':
+			return {
+				selected: action.selected.value
+			};
+		default:
+			return state;
+	}
+}
 
 function timeReducer(state = {time: 15}, action)
 {
@@ -94,7 +104,8 @@ function getAnswers(rightAnswer, data)
 
 const rootReducer = combineReducers({
 	timeReducer: timeReducer,
-	answersReducer: answersReducer
+	answersReducer: answersReducer,
+	controlReducer: controlReducer,
 })
 
 ReactDOM.render((

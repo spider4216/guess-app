@@ -16,7 +16,6 @@ class App extends React.Component
 
 		// get initial state for img and answers
 		this.state = {
-			selected: 0,
 			correct: 0,
 			incorrect: 3,
 			timer: null,
@@ -28,7 +27,7 @@ class App extends React.Component
 	render()
 	{
 		return (
-			<Screen width="240px" height="320px" answerSelected={this.state.selected} correct={this.state.correct} incorrect={this.state.incorrect} />
+			<Screen width="240px" height="320px" correct={this.state.correct} incorrect={this.state.incorrect} />
 		);
 	}
 
@@ -69,27 +68,27 @@ class App extends React.Component
 				this.enter();
 				break;
 			case '1':
-				this.setState({selected: 1});
+				this.props.dispatch({ type: 'control/select', selected: {value: 1} })
 				break;
 			case '2':
-				this.setState({selected: 2});
+				this.props.dispatch({ type: 'control/select', selected: {value: 2} })
 				break;
 			case '3':
-				this.setState({selected: 3});
+				this.props.dispatch({ type: 'control/select', selected: {value: 3} })
 				break;
 			case '4':
-				this.setState({selected: 4});
+				this.props.dispatch({ type: 'control/select', selected: {value: 4} })
 				break;
 		}
 	}
 
 	enter()
 	{
-		if (this.state.selected == 0) {
+		if (this.props.controlReducer.selected == 0) {
 			return;
 		}
 
-		if (this.props.answersReducer.all[this.state.selected - 1].state == 'correct') {
+		if (this.props.answersReducer.all[this.props.controlReducer.selected - 1].state == 'correct') {
 			this.soundWin.play();
 			this.setState({correct: this.state.correct + 1});	
 
@@ -106,20 +105,18 @@ class App extends React.Component
 		this.props.dispatch({ type: 'answer/all' })
 		this.props.dispatch({ type: 'time/reset' });
 
-		this.setState({
-			selected: 0,
-		});
+		this.props.dispatch({ type: 'control/select', selected: {value: 0} })
 	}
 
 	restart(incorrect = 3, correct = 0)
 	{
 		this.props.dispatch({ type: 'answer/all' })
 		this.props.dispatch({ type: 'time/reset' });
+		this.props.dispatch({ type: 'control/select', selected: {value: 0} })
 	
 		this.setState({
 			incorrect: incorrect,
 			correct: correct,
-			selected: 0,
 		});
 	}
 }

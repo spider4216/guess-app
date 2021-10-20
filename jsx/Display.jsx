@@ -12,7 +12,7 @@ class Display extends React.Component
 			<div style={ {width: "100%", height: "252px", overflow: "hidden", padding: "5px",} }>
 				<Status correct={this.props.correct} incorrect={this.props.incorrect} />
 				<Pic img={this.props.answersReducer.one.img} />
-				<Answers data={this.props.answers} answerSelected={this.props.answerSelected} />
+				<Answers data={this.props.answers} />
 			</div>
 		);
 	}
