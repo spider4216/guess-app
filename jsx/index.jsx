@@ -50,8 +50,6 @@ function timeReducer(state = {time: 15}, action)
 }
 
 function answersReducer(state = {}, action) {
-	let one = data[random(data.length)];
-	
 	switch (action.type) {
 		case 'answer/raw' :
 			return {

@@ -7,7 +7,6 @@ class App extends React.Component
 	constructor(props)
 	{
 		super(props);
-		console.log(props);
 		
 		this.props.dispatch({ type: 'answer/all' })
 

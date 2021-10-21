@@ -1,4 +1,5 @@
 import React from "react";
+import {connect} from "react-redux";
 
 class Pic extends React.Component
 {
@@ -6,10 +7,10 @@ class Pic extends React.Component
 	{
 		return (
 			<div id="pic" style={ {height: "115px", textAlign: "center"} }>
-				<img src={this.props.img} />
+				<img src={this.props.answersReducer.one.img} />
 			</div>
 		);
 	}
 }
 
-export default Pic;
+export default connect(state => state)(Pic);
