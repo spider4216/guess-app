@@ -14,11 +14,7 @@ class App extends React.Component
 		this.soundLoose = new Audio('sounds/loose.wav');
 		this.soundWin = new Audio('sounds/win.wav');
 		this.soundClock = new Audio('sounds/tick.wav');
-
-		// get initial state for img and answers
-		this.state = {
-			timer: null,
-		};
+		this.timer = null;
 	}
 
 
@@ -56,7 +52,7 @@ class App extends React.Component
 			}
 
 		}, 1000);
-		this.setState({timer: timer});
+		this.timer = timer;
 		window.addEventListener('keydown', (e) => {this.keyPress(e)})
 	}
 
