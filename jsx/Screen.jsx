@@ -11,7 +11,7 @@ class Screen extends React.Component
 		return (
 			<div id="screen" style={ {width: this.props.width, height: this.props.height, overflow: "hidden",} }>
 				<Header title={this.props.time} />
-				<Display correct={this.props.correct} incorrect={this.props.incorrect} data={this.props.data} img={this.props.img} answers={this.props.answers} />
+				<Display data={this.props.data} img={this.props.img} answers={this.props.answers} />
 				<SoftwareKey />
 			</div>
 		);

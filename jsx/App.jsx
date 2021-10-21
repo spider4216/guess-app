@@ -7,6 +7,7 @@ class App extends React.Component
 	constructor(props)
 	{
 		super(props);
+		console.log(props);
 		
 		this.props.dispatch({ type: 'answer/all' })
 
@@ -16,8 +17,6 @@ class App extends React.Component
 
 		// get initial state for img and answers
 		this.state = {
-			correct: 0,
-			incorrect: 3,
 			timer: null,
 		};
 	}
@@ -27,7 +26,7 @@ class App extends React.Component
 	render()
 	{
 		return (
-			<Screen width="240px" height="320px" correct={this.state.correct} incorrect={this.state.incorrect} />
+			<Screen width="240px" height="320px" />
 		);
 	}
 
@@ -42,13 +41,16 @@ class App extends React.Component
 				this.soundClock.play();
 			}
 
-			if (this.props.timeReducer.time <= 0 && this.state.incorrect > 0) {
+			if (this.props.timeReducer.time <= 0 && this.props.controlReducer.incorrect > 0) {
+				this.props.dispatch({ type: 'control/incorrect_minus' });
+				this.props.dispatch({ type: 'answer/all' });
+				this.props.dispatch({ type: 'time/reset' });
+				this.props.dispatch({ type: 'control/select', selected: {value: 0} });
 				this.soundLoose.play();
-				this.restart(this.state.incorrect - 1, this.state.correct);
 			}
 
-			if (this.state.incorrect <= 0) {
-				alert('Your correct answers: ' + this.state.correct + '. Try again');
+			if (this.props.controlReducer.incorrect <= 0) {
+				alert('Your correct answers: ' + this.props.controlReducer.correct + '. Try again');
 				this.restart();
 				return;
 			}
@@ -90,34 +92,30 @@ class App extends React.Component
 
 		if (this.props.answersReducer.all[this.props.controlReducer.selected - 1].state == 'correct') {
 			this.soundWin.play();
-			this.setState({correct: this.state.correct + 1});	
+			this.props.dispatch({ type: 'control/correct_plus' });
 
 		} else {
 			this.soundLoose.play();
-			this.setState({incorrect: this.state.incorrect - 1});
+			this.props.dispatch({ type: 'control/incorrect_minus' });
 
-			if (this.state.incorrect <= 0) {
-				alert('Your correct answers: ' + this.state.correct + '. Try again');
+			if (this.props.controlReducer.incorrect <= 0) {
+				alert('Your correct answers: ' + this.props.controlReducer.correct + '. Try again');
 				this.restart();
 			}
 		}
 		
-		this.props.dispatch({ type: 'answer/all' })
+		this.props.dispatch({ type: 'answer/all' });
 		this.props.dispatch({ type: 'time/reset' });
 
 		this.props.dispatch({ type: 'control/select', selected: {value: 0} })
 	}
 
-	restart(incorrect = 3, correct = 0)
+	restart()
 	{
 		this.props.dispatch({ type: 'answer/all' })
 		this.props.dispatch({ type: 'time/reset' });
+		this.props.dispatch({ type: 'control/reset' });
 		this.props.dispatch({ type: 'control/select', selected: {value: 0} })
-	
-		this.setState({
-			incorrect: incorrect,
-			correct: correct,
-		});
 	}
 }
 

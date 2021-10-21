@@ -9,11 +9,28 @@ import App from "./App.jsx";
 let json = '[{"img":"/images/1/img.png", "title": "Russia"}, {"img":"/images/2/img.png", "title": "Kazakhstan"},{"img":"/images/3/img.png", "title": "Belarus"},{"img":"/images/4/img.png", "title": "China"},{"img":"/images/5/img.png", "title": "India"}]';
 let data = JSON.parse(json);
 
-function controlReducer(state = {}, action) {
+function controlReducer(state = {selected: 0, correct: 0, incorrect: 3}, action) {
 	switch (action.type) {
+		case 'control/reset':
+			return {
+				selected: 0,
+				correct: 0,
+				incorrect: 3,
+			};
 		case 'control/select':
 			return {
+				...state,
 				selected: action.selected.value
+			};
+		case 'control/correct_plus':
+			return {
+				...state,
+				correct: state.correct + 1
+			};
+		case 'control/incorrect_minus':
+			return {
+				...state,
+				incorrect: state.incorrect - 1
 			};
 		default:
 			return state;
